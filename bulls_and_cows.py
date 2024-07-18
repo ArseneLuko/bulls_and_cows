@@ -98,10 +98,10 @@ def zadej_cislo() -> int:
         # https://stackoverflow.com/questions/38246529/how-do-i-get-user-input-in-the-middle-of-a-sentence-fill-in-the-blank-style-us
 
         # jestliže některá z kontrol neproběhne (Flase), vrátí True a provede příkaz 'continue'
-        if ((not kontroluj_je_cislo(cislo))
-            or (not kontroluj_pocet_cislic(cislo))
-            or (not kontroluj_unikatni_cislice(cislo))
-            or (not kontroluj_nezacina_nulou(cislo))):
+        if ((not kontroluj_je_cislo(cislo)) or
+            (not kontroluj_pocet_cislic(cislo)) or
+            (not kontroluj_unikatni_cislice(cislo)) or
+            (not kontroluj_nezacina_nulou(cislo))):
             continue
         else:
             return int(cislo)
