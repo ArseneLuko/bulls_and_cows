@@ -108,18 +108,30 @@ def zadej_cislo() -> int:
 
 # hlavní program
 if __name__ == "__main__":
+    zatim_nezname_cislo = True
+    pocet_pokusu = 0
+
     # vytvoří hledané číslo
     hadane_cislo = vytvor_hadane_cislo()
 
     # vypíše hlavičku hry na obrazovku
     vypis_radek(), vypis_radek(hlaseni["pozdrav"])
     vypis_radek(), vypis_radek(hlaseni["uvod"]), vypis_radek(hlaseni["vyzva"])
+    vypis_radek(hadane_cislo) # slouž pro testování, vypíše číslo
     vypis_radek()
     
-    
-    pokus_uhodnuti = zadej_cislo()
+    while zatim_nezname_cislo: # nekonečná smyčka pro hádání čísla, ukončí se při uhodnutí
+        pokus_uhodnuti, pocet_pokusu = zadej_cislo(), pocet_pokusu + 1
 
-    # test 
-    bull, cow = "1 bull", "2 cows"
-    vypis_radek(f"There are {bull} and {cow}")
-    vypis_radek(f"Cislo {pokus_uhodnuti} je typu: {type(pokus_uhodnuti)}")
+        if not pokus_uhodnuti == hadane_cislo:
+            bull, cow = "1 bull", "2 cows"
+            vypis_radek(f"There are {bull} and {cow}")
+            vypis_radek(f"Cislo {pokus_uhodnuti} je typu: {type(pokus_uhodnuti)}")
+            vypis_radek(f"toto byl {pocet_pokusu}. pokus")
+            vypis_radek()
+
+        else:
+            zatim_nezname_cislo = False
+            vypis_radek("!!! Congratulations !!!")
+            vypis_radek(f"Number of attempts needed to guess: >{pocet_pokusu}<")
+            vypis_radek()
