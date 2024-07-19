@@ -6,7 +6,6 @@ discord: lukaskarasek__77224
 """
 # importování
 from random import randint
-from threading import local
 
 # vstupní proměnné
 hlaseni = {
@@ -106,12 +105,38 @@ def zadej_cislo() -> int:
         else:
             return int(cislo)
 
+def pridej_sklonovani(pocet):
+    if pocet != 1:
+        return "s"
+    else:
+        return ""
+
+def zhodnoceni_pokusu(pokus: int, cislo: int) -> tuple:
+    
+    cislo_s = str(cislo)
+    pokus_s = str(pokus)
+    byci = 0
+    kravy = 0
+
+    for pozice, polozka in enumerate(pokus_s):
+        if (polozka in cislo_s and
+            cislo_s[pozice] != pokus_s[pozice]):
+            kravy += 1
+        if cislo_s[pozice] == pokus_s[pozice]:
+            byci += 1
+
+    # nastaví množné/jednotné číslo a vytvoří string pro return
+    byci = str(byci) + " bull" + pridej_sklonovani(byci)
+    kravy = str(kravy) + " cow" + pridej_sklonovani(kravy)
+    return(byci, kravy)
+
 # hlavní program
 if __name__ == "__main__":
+    # proměnné
     zatim_nezname_cislo = True
     pocet_pokusu = 0
 
-    # vytvoří hledané číslo
+    # vytvoří hádané číslo
     hadane_cislo = vytvor_hadane_cislo()
 
     # vypíše hlavičku hry na obrazovku
@@ -124,12 +149,9 @@ if __name__ == "__main__":
         pokus_uhodnuti, pocet_pokusu = zadej_cislo(), pocet_pokusu + 1
 
         if not pokus_uhodnuti == hadane_cislo:
-            bull, cow = "1 bull", "2 cows"
-            vypis_radek(f"There are {bull} and {cow}")
-            vypis_radek(f"Cislo {pokus_uhodnuti} je typu: {type(pokus_uhodnuti)}")
-            vypis_radek(f"toto byl {pocet_pokusu}. pokus")
+            byci, kravy = zhodnoceni_pokusu(pokus_uhodnuti, hadane_cislo)
+            vypis_radek(f"There are {byci} and {kravy}")
             vypis_radek()
-
         else:
             zatim_nezname_cislo = False
             vypis_radek("!!! Congratulations !!!")
