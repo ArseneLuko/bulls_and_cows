@@ -148,7 +148,6 @@ if __name__ == "__main__":
     # vypíše hlavičku hry na obrazovku
     vypis_radek(), vypis_radek(hlaseni["pozdrav"])
     vypis_radek(), vypis_radek(hlaseni["uvod"]), vypis_radek(hlaseni["vyzva"])
-    vypis_radek(hadane_cislo) # slouž pro testování, vypíše číslo
     vypis_radek()
     
     while zatim_nezname_cislo: # nekonečná smyčka pro hádání čísla, ukončí se při uhodnutí
