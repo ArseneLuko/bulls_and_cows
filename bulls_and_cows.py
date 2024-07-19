@@ -37,7 +37,14 @@ def vytvor_hadane_cislo() -> int:
     """
     Funkce vrátí náhodné celé čtyřmístné číslo, které nezačíná číslicí 0. Tedy číslo mezi 1000 a 9999.
     """
-    return randint(1000, 9999)
+    while True:
+        nahodne_cislo = randint(1000, 9999)
+        if len(set(str(nahodne_cislo))) != 4:
+            continue
+        else:
+            break
+    
+    return nahodne_cislo
 
 def kontroluj_je_cislo(ke_kontrole: str) -> bool:
     """
@@ -111,8 +118,7 @@ def pridej_sklonovani(pocet):
     else:
         return ""
 
-def zhodnoceni_pokusu(pokus: int, cislo: int) -> tuple:
-    
+def zhodnoceni_pokusu(pokus: int, cislo: int) -> tuple: 
     cislo_s = str(cislo)
     pokus_s = str(pokus)
     byci = 0
