@@ -23,8 +23,8 @@ hlaseni = {
 # definice funkcí
 def vypis_radek(sdeleni: str=hlaseni["oddelovac"], pozice: str="stred"):
     """
-    Vypíše vstup za znaky "|" na začátku a na konci v velkové délce 79 znaků.
-    Bez argumentu vypíše řadu pomlček. Pro argument pozice je možné zadat 2 možnosi: "stred" - zarovnání na střed, "vpravo" - zaovnání vpravo a "vlevo" - zarovnání vlevo.
+    Vypíše vstup mezi znaky "|" na začátku a na konci v velkové délce 79 znaků.
+    Bez argumentu vypíše řadu pomlček. Pro argument pozice je možné zadat 2 možnosi: "stred" - zarovnání na střed (defaultní), "vpravo" - zaovnání vpravo a "vlevo" - zarovnání vlevo.
     """
     if pozice == "stred":
         print(f"|{sdeleni: ^78}", end="|\n") # 79 celkem: "|" + 78
@@ -39,11 +39,10 @@ def vytvor_hadane_cislo() -> int:
     """
     while True:
         nahodne_cislo = randint(1000, 9999)
-        if len(set(str(nahodne_cislo))) != 4:
+        # velikost množiny, kde je každý prvek unikátní, musí být rovna velikosti listu - tím se potvrdí unikátnost prvků
+        if len(set(str(nahodne_cislo))) != len(list(str(nahodne_cislo))):
             continue
-        else:
-            break
-    
+        break
     return nahodne_cislo
 
 def kontroluj_je_cislo(ke_kontrole: str) -> bool:
@@ -72,7 +71,7 @@ def kontroluj_unikatni_cislice(ke_kontrole: str) -> bool:
     """
     Funkce vrátí True, jestliže jsou číslice v zadaném čísle unikátní (neopakují se).
     """
-    if len(set(ke_kontrole)) != 4:
+    if len(set(ke_kontrole)) != len(list(ke_kontrole)):
         vypis_radek(hlaseni["unikatni"], "vpravo")
         vypis_radek()
         return False
@@ -95,7 +94,7 @@ def zadej_cislo() -> int:
     Vrátí čtyřmísnté číslo, zadané uživatelem. Funkce vrátí číslo pouze pokud projde přes všechny podmínky:\n
         1. zadané znaky jsou pouze číslice\n
         2. počet zadaných číslic je přesně čtyři\n
-        3. všechny číslice jsou unikátní, neopakují se\n
+        3. všechny číslice jsou unikátní\n
         4. číslo nezačíná číslicí '0'\n
     """
     while True:
