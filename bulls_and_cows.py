@@ -4,6 +4,10 @@ author: Lukáš Karásek
 email: lukas@lukaskarasek.cz
 discord: lukaskarasek__77224
 """
+# TODO: možnost zvolit kolik číslic 
+#   - uživaelský vsup
+#   - kontrola počtu číslic
+
 # importování
 from random import randint
 
@@ -33,13 +37,13 @@ def vypis_radek(sdeleni: str=hlaseni["oddelovac"], pozice: str="stred"):
     elif pozice == "vpravo":
         print(f"| {sdeleni: >76} ", end="|\n") # 79 celkem: "| " + 76 + " "
 
-def vytvor_hadane_cislo() -> int:
+def vytvor_hadane_cislo(velikost: int=3) -> int:
     """
-    Funkce vrátí náhodné celé čtyřmístné číslo, které nezačíná číslicí 0. Tedy číslo mezi 1000 a 9999.
+    Funkce vrátí náhodné celé číslo, které nezačíná číslicí 0. Počet číslic je zvolen uživatelem, defaultně je 4.
     """
     while True:
-        nahodne_cislo = randint(1000, 9999)
-        # velikost množiny, kde je každý prvek unikátní, musí být rovna velikosti listu - tím se potvrdí unikátnost prvků
+        nahodne_cislo = randint(int("1" + (velikost - 1) * "0"), int(velikost * "9"))
+        # pokud je každé číslo jen jednou, bude množina (set) stejně velká jako list, ale pokud se nějaká číslice opakuje, v množině se vysktne jen jednou a tím pádem nebude mít set a list stejnou velikost
         if len(set(str(nahodne_cislo))) != len(list(str(nahodne_cislo))):
             continue
         break
