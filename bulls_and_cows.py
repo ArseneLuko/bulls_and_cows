@@ -4,21 +4,21 @@ author: Lukáš Karásek
 email: lukas@lukaskarasek.cz
 discord: lukaskarasek__77224
 """
-# TODO: možnost zvolit kolik číslic 
-#   - uživaelský vsup
-#   - kontrola počtu číslic
-
 # importování
 from random import randint
 
 # vstupní proměnné
 hlaseni = {
     "pozdrav": "Hi cowgirl or cowboy!",
-    "uvod": "I've generated a random 4 digit number for you.",
-    "vyzva": "Let's play a bulls and cows game.",
-    "zadani": "Enter a number:",
+    "uvod": "I will generat a random X-digit number for you.", # upravit podle velikosti - kdy si uživatle zvolí počet číslic
+    "vyzva": "Let's play The bulls and cows game.",
+    "vyzva_pocet": "Choose how many digits the number will contain.",
+    "zadani_pocet": "Enter a number between 3 to 7:",
+    "zadani_platny": "Enter a valid entry - only one number from 3 to 7.",
+    "hadej_cislo": "Enter your guess:",
+    "generovano": "I've thought a number, let's guess it.",
     "oddelovac": 78 * "-",
-    "delka_4": "The number must contain four digits. Guess again.",
+    "delka": "Must have the same number of digits as you have chosen. Guess again.",
     "neni_cislo": "It is necessary to enter digits from 0 to 9. Guess again.",
     "unikatni": "Digits must be unique. Guess again.",
     "zacina_nulou": "The number must not start with '0'. Guess again."
@@ -37,9 +37,9 @@ def vypis_radek(sdeleni: str=hlaseni["oddelovac"], pozice: str="stred"):
     elif pozice == "vpravo":
         print(f"| {sdeleni: >76} ", end="|\n") # 79 celkem: "| " + 76 + " "
 
-def vytvor_hadane_cislo(velikost: int=3) -> int:
+def vytvor_hadane_cislo(velikost: int) -> int:
     """
-    Funkce vrátí náhodné celé číslo, které nezačíná číslicí 0. Počet číslic je zvolen uživatelem, defaultně je 4.
+    Funkce vrátí náhodné celé číslo, které nezačíná číslicí 0. Počet číslic je zvolen uživatelem.
     """
     while True:
         nahodne_cislo = randint(int("1" + (velikost - 1) * "0"), int(velikost * "9"))
@@ -48,6 +48,22 @@ def vytvor_hadane_cislo(velikost: int=3) -> int:
             continue
         break
     return nahodne_cislo
+
+def zadej_delku_cisla() -> int:
+    """
+    Funkce vrátí celé číslo v rozmezí 3 až 7.
+    """
+    vypis_radek(hlaseni["vyzva_pocet"], "vlevo")
+    while True:
+        vypis_radek(hlaseni["zadani_pocet"], "vlevo")
+        velikost_cisla = input(f"|{78 * ' '}| \x1B[79D")
+        if velikost_cisla.isdecimal() and (2 < int(velikost_cisla) < 8):
+            break
+        vypis_radek(hlaseni["zadani_platny"], "vpravo")
+    vypis_radek(hlaseni["generovano"])
+    vypis_radek()
+    vypis_radek()
+    return int(velikost_cisla)
 
 def kontroluj_je_cislo(ke_kontrole: str) -> bool:
     """
@@ -62,10 +78,10 @@ def kontroluj_je_cislo(ke_kontrole: str) -> bool:
 
 def kontroluj_pocet_cislic(ke_kontrole: str) -> bool:
     """
-    Funkce vrátí True, jestli je počet znaků roven 4.
+    Funkce vrátí True, jestli je počet znaků roven "velikost_cisla".
     """
-    if len(ke_kontrole) != 4:
-        vypis_radek(hlaseni["delka_4"], "vpravo")
+    if len(ke_kontrole) != velikost_cisla:
+        vypis_radek(hlaseni["delka"], "vpravo")
         vypis_radek()
         return False
     else:
@@ -102,7 +118,7 @@ def zadej_cislo() -> int:
         4. číslo nezačíná číslicí '0'\n
     """
     while True:
-        vypis_radek(hlaseni["zadani"], "vlevo")
+        vypis_radek(hlaseni["hadej_cislo"], "vlevo")
         cislo = input(f"|{78 * ' '}| \x1B[79D") # posune kurzor o 79 míst vlevo
         # https://stackoverflow.com/questions/38246529/how-do-i-get-user-input-in-the-middle-of-a-sentence-fill-in-the-blank-style-us
 
@@ -145,13 +161,14 @@ if __name__ == "__main__":
     zatim_nezname_cislo = True
     pocet_pokusu = 0
 
-    # vytvoří hádané číslo
-    hadane_cislo = vytvor_hadane_cislo()
-
     # vypíše hlavičku hry na obrazovku
     vypis_radek(), vypis_radek(hlaseni["pozdrav"])
-    vypis_radek(), vypis_radek(hlaseni["uvod"]), vypis_radek(hlaseni["vyzva"])
+    vypis_radek(), vypis_radek(hlaseni["vyzva"]), vypis_radek(hlaseni["uvod"])
     vypis_radek()
+
+    # vytvoří hádané číslo z uživatelského vstupu z 
+    hadane_cislo = vytvor_hadane_cislo(velikost_cisla := zadej_delku_cisla())
+    vypis_radek(hadane_cislo, "stred") # debugovaání, vypíše číslo
     
     while zatim_nezname_cislo: # nekonečná smyčka pro hádání čísla, ukončí se při uhodnutí
         pokus_uhodnuti, pocet_pokusu = zadej_cislo(), pocet_pokusu + 1
