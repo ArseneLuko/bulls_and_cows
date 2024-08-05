@@ -41,9 +41,9 @@ def vypis_radek(sdeleni: str=hlaseni["oddelovac"], pozice: str="stred"):
     elif pozice == "vpravo":
         print(f"| {sdeleni: >76} ", end="|\n") # 79 celkem: "| " + 76 + " "
 
-def vytvor_hadane_cislo(velikost: int) -> int:
+def vytvor_hadane_cislo(velikost: int) -> str:
     """
-    Funkce vrátí náhodné celé číslo, které nezačíná číslicí 0. Počet číslic je zvolen uživatelem.
+    Funkce vrátí náhodné celé číslo (ve formátu textu), které nezačíná číslicí 0. Počet číslic je zvolen uživatelem. 
     """
     while True:
         nahodne_cislo = randint(int("1" + (velikost - 1) * "0"), int(velikost * "9"))
@@ -51,7 +51,7 @@ def vytvor_hadane_cislo(velikost: int) -> int:
         if len(set(str(nahodne_cislo))) != len(list(str(nahodne_cislo))):
             continue
         break
-    return nahodne_cislo
+    return str(nahodne_cislo)
 
 def zadej_delku_cisla() -> int:
     """
@@ -118,7 +118,7 @@ def kontroluj_nezacina_nulou(ke_kontrole: str) -> bool:
     else:
         return True
 
-def zadej_cislo() -> int:
+def zadej_cislo() -> str:
     """
     Vrátí čtyřmísnté číslo, zadané uživatelem. Funkce vrátí číslo pouze pokud projde přes všechny podmínky:\n
         1. zadané znaky jsou pouze číslice\n
@@ -144,7 +144,7 @@ def zadej_cislo() -> int:
             (not kontroluj_nezacina_nulou(cislo))):
             continue
         else:
-            return int(cislo)
+            return cislo
 
 def pridej_sklonovani(pocet):
     if pocet != 1:
@@ -152,17 +152,15 @@ def pridej_sklonovani(pocet):
     else:
         return ""
 
-def zhodnoceni_pokusu(pokus: int, cislo: int) -> tuple: 
-    cislo_s = str(cislo)
-    pokus_s = str(pokus)
+def zhodnoceni_pokusu(pokus: str, cislo: str) -> tuple: 
     byci = 0
     kravy = 0
 
-    for pozice, polozka in enumerate(pokus_s):
-        if (polozka in cislo_s and
-            cislo_s[pozice] != pokus_s[pozice]):
+    for pozice, polozka in enumerate(pokus):
+        if (polozka in cislo and
+            cislo[pozice] != pokus[pozice]):
             kravy += 1
-        if cislo_s[pozice] == pokus_s[pozice]:
+        if cislo[pozice] == pokus[pozice]:
             byci += 1
 
     # nastaví množné/jednotné číslo a vytvoří string pro return
