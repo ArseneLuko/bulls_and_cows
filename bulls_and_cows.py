@@ -7,11 +7,12 @@ discord: lukaskarasek__77224
 # importování
 from random import randint
 
-# vstupní proměnné
+# globální proměnné proměnné
 ukonceni = ("quit", "q")
+pocet_pokusu = 0
 hlaseni = {
     "pozdrav": "Hi cowgirl or cowboy!",
-    "uvod": "I will generat a random X-digit number for you.", # upravit podle velikosti - kdy si uživatle zvolí počet číslic
+    "uvod": "I will generat a random X-digit number for you.",
     "vyzva": "Let's play The bulls and cows game.",
     "vyzva_pocet": "Choose how many digits the number will contain.",
     "zadani_pocet": "Enter a number between 3 to 7:",
@@ -88,7 +89,7 @@ def kontroluj_pocet_cislic(ke_kontrole: str) -> bool:
     """
     Funkce vrátí True, jestli je počet znaků roven "velikost_cisla".
     """
-    if len(ke_kontrole) != velikost_cisla:
+    if len(ke_kontrole) != len(str(hadane_cislo)):
         vypis_radek(hlaseni["delka"], "vpravo")
         vypis_radek()
         return False
@@ -173,16 +174,15 @@ def zhodnoceni_pokusu(pokus: int, cislo: int) -> tuple:
 if __name__ == "__main__":
     # proměnné
     zatim_nezname_cislo = True
-    pocet_pokusu = 0
 
     # vypíše hlavičku hry na obrazovku
     vypis_radek(), vypis_radek(hlaseni["pozdrav"])
     vypis_radek(), vypis_radek(hlaseni["vyzva"]), vypis_radek(hlaseni["uvod"])
     vypis_radek()
 
-    # vytvoří hádané číslo z uživatelského vstupu z 
-    hadane_cislo = vytvor_hadane_cislo(velikost_cisla := zadej_delku_cisla())
-    # vypis_radek(hadane_cislo, "stred") # debugovaání, vypíše číslo
+    # vytvoří hádané číslo v délce uživatelského vstupu
+    hadane_cislo = vytvor_hadane_cislo(zadej_delku_cisla())
+    # vypis_radek(hadane_cislo, "stred") # debugování, vypíše číslo
     
     while zatim_nezname_cislo: # nekonečná smyčka pro hádání čísla, ukončí se při uhodnutí
         pokus_uhodnuti, pocet_pokusu = zadej_cislo(), pocet_pokusu + 1
