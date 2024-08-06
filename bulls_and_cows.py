@@ -180,10 +180,11 @@ if __name__ == "__main__":
 
         if not pokus_uhodnuti == hadane_cislo:
             byci, kravy = zhodnoceni_pokusu(pokus_uhodnuti, hadane_cislo)
-            vypis_radek(f"There are {byci} and {kravy}")
+            vypis_radek(hlaseni["hodnoceni"].format(byci, kravy))
             vypis_radek()
         else:
             zatim_nezname_cislo = False
             vysledny_cas = round(time() - zacatecni_cas, 1)
             vypis_radek(hlaseni["gratulace"])
             vypis_statistiky(pokusy=pocet_pokusu, cas=vysledny_cas)
+            

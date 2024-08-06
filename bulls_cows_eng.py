@@ -14,6 +14,7 @@ hlaseni = {
     "zacina_nulou": "The number must not start with '0'. Guess again.",
     "konec": "Thanks for playing! But sorry, I'll not tell you the number.",
     "konec_bez_cisla": "Thanks for playing! See you next time.",
+    "hodnoceni": "There are {} and {}",
     "gratulace": "!!! Congratulations !!!",
     "pokusy": "Number of attempts needed to guess: >{}<",
     "cas": "Seconds needed to guess: >{}<",
