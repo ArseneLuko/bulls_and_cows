@@ -7,10 +7,16 @@ discord: lukaskarasek__77224
 # importování
 from random import randint
 from time import time
-from bulls_cows_eng import hlaseni
+import sys
+
+# importování jazyka podle parametru
+if (len(sys.argv) > 1) and sys.argv[1] == 'cz':
+    from bulls_cows_lang import hlaseni_cz as hlaseni
+else:
+    from bulls_cows_lang import hlaseni_en as hlaseni
 
 # globální proměnné proměnné
-ukonceni = ("quit", "q")
+ukonceni = ("quit", "q", "konec", "k")
 pocet_pokusu = 0
 
 # definice funkcí
