@@ -7,40 +7,31 @@ discord: lukaskarasek__77224
 # importování
 from random import randint
 from time import time
+from bulls_cows_eng import hlaseni
 
 # globální proměnné proměnné
 ukonceni = ("quit", "q")
 pocet_pokusu = 0
-hlaseni = {
-    "pozdrav": "Hi cowgirl or cowboy!",
-    "uvod": "I will generat a random X-digit number for you.",
-    "vyzva": "Let's play The bulls and cows game.",
-    "vyzva_pocet": "Choose how many digits the number will contain.",
-    "zadani_pocet": "Enter a number between 3 to 7:",
-    "zadani_platny": "Enter a valid entry - only one number from 3 to 7.",
-    "hadej_cislo": "Enter your guess:",
-    "generovano": "I've thought a number, let's guess it.",
-    "oddelovac": 78 * "-",
-    "delka": "Must have the same number of digits as you have chosen. Guess again.",
-    "neni_cislo": "It is necessary to enter digits from 0 to 9. Guess again.",
-    "unikatni": "Digits must be unique. Guess again.",
-    "zacina_nulou": "The number must not start with '0'. Guess again.",
-    "konec": "Thanks for playing! But sorry, I'll not tell you the number.",
-    "konec_bez_cisla": "Thanks for playing! See you next time."
-}
 
 # definice funkcí
-def vypis_radek(sdeleni: str=hlaseni["oddelovac"], pozice: str="stred"):
+def vypis_radek(sdeleni: str=hlaseni["oddelovac"], pozice: str="stred", opakovani: int=1):
     """
     Vypíše vstup mezi znaky "|" na začátku a na konci v velkové délce 79 znaků.
     Bez argumentu vypíše řadu pomlček. Pro argument pozice je možné zadat 2 možnosi: "stred" - zarovnání na střed (defaultní), "vpravo" - zaovnání vpravo a "vlevo" - zarovnání vlevo.
     """
-    if pozice == "stred":
-        print(f"|{sdeleni: ^78}", end="|\n") # 79 celkem: "|" + 78
-    elif pozice == "vlevo":
-        print(f"| {sdeleni: <77}", end="|\n") # 79 celkem: "| " + 77
-    elif pozice == "vpravo":
-        print(f"| {sdeleni: >76} ", end="|\n") # 79 celkem: "| " + 76 + " "
+    for _ in range(opakovani):
+        if pozice == "stred":
+            print(f"|{sdeleni: ^78}", end="|\n") # 79 celkem: "|" + 78
+        elif pozice == "vlevo":
+            print(f"| {sdeleni: <77}", end="|\n") # 79 celkem: "| " + 77
+        elif pozice == "vpravo":
+            print(f"| {sdeleni: >76} ", end="|\n") # 79 celkem: "| " + 76 + " "
+
+def vypis_statistiky(pokusy, cas):
+    vypis_radek(hlaseni["pokusy"].format(pokusy))
+    vypis_radek(hlaseni["cas"].format(cas))
+    vypis_radek(hlaseni["prumer"].format(round(cas / pokusy, 1)))
+    vypis_radek(opakovani=2)
 
 def vytvor_hadane_cislo(velikost: int) -> str:
     """
@@ -64,15 +55,13 @@ def zadej_delku_cisla() -> int:
         velikost_cisla = input(f"|{78 * ' '}| \x1B[79D")
         if velikost_cisla.lower() in (ukonceni):
             vypis_radek(hlaseni["konec_bez_cisla"])
-            vypis_radek()
-            vypis_radek()
+            vypis_radek(opakovani=2)
             quit()
         if velikost_cisla.isdecimal() and (2 < int(velikost_cisla) < 8):
             break
         vypis_radek(hlaseni["zadani_platny"], "vpravo")
-    vypis_radek(hlaseni["generovano"])
-    vypis_radek()
-    vypis_radek()
+    vypis_radek(hlaseni["generovano"].format(velikost_cisla))
+    vypis_radek(opakovani=2)
     return int(velikost_cisla)
 
 def kontroluj_je_cislo(ke_kontrole: str) -> bool:
@@ -91,7 +80,7 @@ def kontroluj_pocet_cislic(ke_kontrole: str) -> bool:
     Funkce vrátí True, jestli je počet znaků roven "velikost_cisla".
     """
     if len(ke_kontrole) != len(str(hadane_cislo)):
-        vypis_radek(hlaseni["delka"], "vpravo")
+        vypis_radek(hlaseni["delka"].format(len(str(hadane_cislo))), "vpravo")
         vypis_radek()
         return False
     else:
@@ -175,7 +164,7 @@ if __name__ == "__main__":
     zatim_nezname_cislo = True
 
     # vypíše hlavičku hry na obrazovku
-    vypis_radek(), vypis_radek(hlaseni["pozdrav"])
+    vypis_radek(opakovani=2), vypis_radek(hlaseni["pozdrav"])
     vypis_radek(), vypis_radek(hlaseni["vyzva"]), vypis_radek(hlaseni["uvod"])
     vypis_radek()
 
@@ -183,7 +172,8 @@ if __name__ == "__main__":
     hadane_cislo = vytvor_hadane_cislo(zadej_delku_cisla())
     vypis_radek(hadane_cislo, "stred") # debugování, vypíše číslo
     
-    input(f"| Press Enter to start...{54 * ' '}| \x1B[79D")
+    vypis_radek(hlaseni["mereni_casu"])
+    input(f"|{78 * ' '}| \x1B[79D")
     zacatecni_cas = time()
     while zatim_nezname_cislo: # nekonečná smyčka pro hádání čísla, ukončí se při uhodnutí
         pokus_uhodnuti, pocet_pokusu = zadej_cislo(), pocet_pokusu + 1
@@ -195,8 +185,5 @@ if __name__ == "__main__":
         else:
             zatim_nezname_cislo = False
             vysledny_cas = round(time() - zacatecni_cas, 1)
-            vypis_radek("!!! Congratulations !!!")
-            vypis_radek(f"Number of attempts needed to guess: >{pocet_pokusu}<")
-            vypis_radek(f"It took you {vysledny_cas} seconds,")
-            vypis_radek(f"that makes {round(vysledny_cas / pocet_pokusu, 1)} seconds per try.")
-            vypis_radek()
+            vypis_radek(hlaseni["gratulace"])
+            vypis_statistiky(pokusy=pocet_pokusu, cas=vysledny_cas)
