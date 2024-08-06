@@ -6,6 +6,7 @@ discord: lukaskarasek__77224
 """
 # importování
 from random import randint
+from time import time
 
 # globální proměnné proměnné
 ukonceni = ("quit", "q")
@@ -180,8 +181,10 @@ if __name__ == "__main__":
 
     # vytvoří hádané číslo v délce uživatelského vstupu
     hadane_cislo = vytvor_hadane_cislo(zadej_delku_cisla())
-    # vypis_radek(hadane_cislo, "stred") # debugování, vypíše číslo
+    vypis_radek(hadane_cislo, "stred") # debugování, vypíše číslo
     
+    input(f"| Press Enter to start...{54 * ' '}| \x1B[79D")
+    zacatecni_cas = time()
     while zatim_nezname_cislo: # nekonečná smyčka pro hádání čísla, ukončí se při uhodnutí
         pokus_uhodnuti, pocet_pokusu = zadej_cislo(), pocet_pokusu + 1
 
@@ -191,6 +194,9 @@ if __name__ == "__main__":
             vypis_radek()
         else:
             zatim_nezname_cislo = False
+            vysledny_cas = round(time() - zacatecni_cas, 1)
             vypis_radek("!!! Congratulations !!!")
             vypis_radek(f"Number of attempts needed to guess: >{pocet_pokusu}<")
+            vypis_radek(f"It took you {vysledny_cas} seconds,")
+            vypis_radek(f"that makes {round(vysledny_cas / pocet_pokusu, 1)} seconds per try.")
             vypis_radek()
