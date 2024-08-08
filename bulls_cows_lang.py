@@ -1,3 +1,6 @@
+from turtle import circle
+
+
 hlaseni_en = {
     "pozdrav": "Hi cowgirl or cowboy!",
     "uvod": "I will generat a random X-digit number for you.",
@@ -23,7 +26,7 @@ hlaseni_en = {
 }
 
 hlaseni_cz = {
-    "pozdrav": "Zdravím Tě, hrči * hráčko!",
+    "pozdrav": "Zdravím Tě, hráči * hráčko!",
     "uvod": "Vytvořím pro Tebe X-místné číslo, které budeš hádat",
     "vyzva": "Poďme hrát The bulls and cows game.",
     "vyzva_pocet": "Zadej kolik číslic bude mít číslo.",
@@ -38,10 +41,28 @@ hlaseni_cz = {
     "zacina_nulou": "Číslo nesmí začínat nulou. Hádej znovu.",
     "konec": "Díky za hru! Ale nečekej, že Ti číslo prozradím ;).",
     "konec_bez_cisla": "Díky za hru! Přijď příště.",
-    "hodnoceni": "There are {} and {}",
+    "hodnoceni": "Počet {} a {}",
     "gratulace": "!!! Gratulace !!!",
-    "pokusy": "Počet pokusů: >{}<",
-    "cas": "Kolik sekund Ti to trvalo: >{}<",
+    "pokusy": "Celkový počet pokusů: >{}<",
+    "cas": "Celkový čas (sekundy): >{}<",
     "prumer": "Průměrný čas na jeden pokus (sekundy): >{}<",
     "mereni_casu": "Stiskni Enter pro zahájení měření času..."
 }
+
+def pridej_sklonovani_en(pocet: int, druh: str) -> str:
+    """
+    Podle poču 0 nebo více než jedna přidá k druhu koncov= "s"
+    """
+    if pocet != 1:
+        return str(pocet) + " " + druh + "s"
+    else:
+        return str(pocet) + " " + druh
+    
+def pridej_sklonovani_cz(pocet: int, druh: str) -> str:
+    """
+    Podle druhu vypíše v češtině název druhu a počet
+    """
+    if druh == "bull":
+        return "býků: " + str(pocet)
+    elif druh == "cow":
+        return "krav: " + str(pocet)

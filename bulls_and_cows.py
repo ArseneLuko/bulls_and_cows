@@ -4,16 +4,19 @@ author: Lukáš Karásek
 email: lukas@lukaskarasek.cz
 discord: lukaskarasek__77224
 """
+
 # importování
 from random import randint
 from time import time
 import sys
 
 # importování jazyka podle parametru
-if (len(sys.argv) > 1) and sys.argv[1] == 'cz':
+if (len(sys.argv) > 1) and sys.argv[1] == '-cz':
     from bulls_cows_lang import hlaseni_cz as hlaseni
+    from bulls_cows_lang import pridej_sklonovani_cz as pridej_sklonovani
 else:
     from bulls_cows_lang import hlaseni_en as hlaseni
+    from bulls_cows_lang import pridej_sklonovani_en as pridej_sklonovani
 
 # globální proměnné proměnné
 ukonceni = ("quit", "q", "konec", "k")
@@ -142,12 +145,6 @@ def zadej_cislo() -> str:
         else:
             return cislo
 
-def pridej_sklonovani(pocet):
-    if pocet != 1:
-        return "s"
-    else:
-        return ""
-
 def zhodnoceni_pokusu(pokus: str, cislo: str) -> tuple: 
     byci = 0
     kravy = 0
@@ -160,15 +157,15 @@ def zhodnoceni_pokusu(pokus: str, cislo: str) -> tuple:
             byci += 1
 
     # nastaví množné/jednotné číslo a vytvoří string pro return
-    byci = str(byci) + " bull" + pridej_sklonovani(byci)
-    kravy = str(kravy) + " cow" + pridej_sklonovani(kravy)
+    byci = pridej_sklonovani(byci, druh="bull")
+    kravy = pridej_sklonovani(kravy, druh="cow")
     return(byci, kravy)
 
 # hlavní program
 if __name__ == "__main__":
     # proměnné
     zatim_nezname_cislo = True
-
+    
     # vypíše hlavičku hry na obrazovku
     vypis_radek(opakovani=2), vypis_radek(hlaseni["pozdrav"])
     vypis_radek(), vypis_radek(hlaseni["vyzva"]), vypis_radek(hlaseni["uvod"])
