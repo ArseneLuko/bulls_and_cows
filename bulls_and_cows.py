@@ -70,8 +70,6 @@ def zadej_delku_cisla() -> int:
         if velikost_cisla.isdecimal() and (2 < int(velikost_cisla) < 8):
             break
         vypis_radek(hlaseni["zadani_platny"], "vpravo")
-    vypis_radek(hlaseni["generovano"].format(velikost_cisla))
-    vypis_radek(opakovani=2)
     return int(velikost_cisla)
 
 def kontroluj_je_cislo(ke_kontrole: str) -> bool:
@@ -128,14 +126,13 @@ def zadej_cislo() -> str:
     """
     while True:
         vypis_radek(hlaseni["hadej_cislo"], "vlevo")
-        cislo = input(f"|{78 * ' '}| \x1B[79D").strip() # posune kurzor o 79 míst vlevo
+        cislo = input(f"| {velikost_cisla * '_'}{(77 - velikost_cisla) * ' '}| \x1B[79D").strip() # posune kurzor o 79 míst vlevo
         # https://stackoverflow.com/questions/38246529/how-do-i-get-user-input-in-the-middle-of-a-sentence-fill-in-the-blank-style-us
 
         # jestliže některá z kontrol neproběhne (Flase), vrátí True a provede příkaz 'continue'
         if cislo.lower() in (ukonceni):
             vypis_radek(hlaseni["konec"])
-            vypis_radek()
-            vypis_radek()
+            vypis_radek(opakovani=2)
             quit()
 
         if ((not kontroluj_je_cislo(cislo)) or
@@ -169,14 +166,18 @@ if __name__ == "__main__":
     # vypíše hlavičku hry na obrazovku
     vypis_radek(opakovani=2), vypis_radek(hlaseni["pozdrav"])
     vypis_radek(), vypis_radek(hlaseni["vyzva"]), vypis_radek(hlaseni["uvod"])
+    vypis_radek(hlaseni["pravidla-1"]), vypis_radek(hlaseni["pravidla-2"])
+    vypis_radek(hlaseni["pravidla-konec"])
     vypis_radek()
 
     # vytvoří hádané číslo v délce uživatelského vstupu
-    hadane_cislo = vytvor_hadane_cislo(zadej_delku_cisla())
+    hadane_cislo = vytvor_hadane_cislo(velikost_cisla := zadej_delku_cisla())
     # vypis_radek(hadane_cislo, "stred") # debugování, vypíše číslo
     
+    vypis_radek(hlaseni["generovano"].format(velikost_cisla))
     vypis_radek(hlaseni["mereni_casu"])
     input(f"|{78 * ' '}| \x1B[79D")
+    vypis_radek(opakovani=2)
     zacatecni_cas = time()
     while zatim_nezname_cislo: # nekonečná smyčka pro hádání čísla, ukončí se při uhodnutí
         pokus_uhodnuti, pocet_pokusu = zadej_cislo(), pocet_pokusu + 1

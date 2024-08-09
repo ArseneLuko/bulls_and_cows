@@ -1,6 +1,9 @@
 hlaseni_en = {
     "pozdrav": "Hi cowgirl or cowboy!",
     "uvod": "I will generat a random X-digit number for you.",
+    "pravidla-1": "když bude číslice na správném místě, dostaneš býka,",
+    "pravidla-2": "když bude číslice na jiném místě, dostaneš krávu.",
+    "pravidla-konec": "Hru můžeš ukončit zadáním \"konec\" nebo \"k\"",
     "vyzva": "Let's play The bulls and cows game.",
     "vyzva_pocet": "Choose how many digits the number will contain.",
     "zadani_pocet": "Enter a number between 3 to 7:",
@@ -24,9 +27,12 @@ hlaseni_en = {
 
 hlaseni_cz = {
     "pozdrav": "Zdravím Tě, hráči * hráčko!",
-    "uvod": "Vytvořím pro Tebe X-místné číslo, které budeš hádat",
-    "vyzva": "Pojďme hrát The bulls and cows game.",
-    "vyzva_pocet": "Zadej kolik číslic bude mít číslo.",
+    "uvod": "Vytvořím pro Tebe X-místné číslo, které budeš hádat,",
+    "pravidla-1": "když bude číslice na správném místě, dostaneš býka,",
+    "pravidla-2": "když bude číslice na jiném místě, dostaneš krávu.",
+    "pravidla-konec": "Hru můžeš ukončit zadáním 'konec' nebo 'k'",
+    "vyzva": "Pojďme hrát hru: The bulls and cows game.",
+    "vyzva_pocet": "Zadej kolik číslic bude mít hadané číslo.",
     "zadani_pocet": "Zadej číslo mezi 3 a 7:",
     "zadani_platny": "Zadej platný vstup - pouze celé číslo od 3 do 7.",
     "generovano": "Mám {} místné číslo, zkus jej uhodnout.",
