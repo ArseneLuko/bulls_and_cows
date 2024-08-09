@@ -8,10 +8,10 @@ discord: lukaskarasek__77224
 # importování
 from random import randint
 from time import time
-import sys
+from sys import argv
 
 # importování jazyka podle parametru
-if (len(sys.argv) > 1) and sys.argv[1] == '-cz':
+if (len(argv) > 1) and argv[1] == '-cz':
     from bulls_cows_lang import hlaseni_cz as hlaseni
     from bulls_cows_lang import pridej_sklonovani_cz as pridej_sklonovani
 else:
@@ -128,7 +128,7 @@ def zadej_cislo() -> str:
     """
     while True:
         vypis_radek(hlaseni["hadej_cislo"], "vlevo")
-        cislo = input(f"|{78 * ' '}| \x1B[79D") # posune kurzor o 79 míst vlevo
+        cislo = input(f"|{78 * ' '}| \x1B[79D").strip() # posune kurzor o 79 míst vlevo
         # https://stackoverflow.com/questions/38246529/how-do-i-get-user-input-in-the-middle-of-a-sentence-fill-in-the-blank-style-us
 
         # jestliže některá z kontrol neproběhne (Flase), vrátí True a provede příkaz 'continue'
@@ -151,11 +151,10 @@ def zhodnoceni_pokusu(pokus: str, cislo: str) -> tuple:
     kravy = 0
 
     for pozice, polozka in enumerate(pokus):
-        if (polozka in cislo and
-            cislo[pozice] != pokus[pozice]):
-            kravy += 1
         if cislo[pozice] == pokus[pozice]:
             byci += 1
+        elif polozka in cislo:
+            kravy += 1
 
     # nastaví množné/jednotné číslo a vytvoří string pro return
     byci = pridej_sklonovani(byci, druh="bull")
@@ -174,7 +173,7 @@ if __name__ == "__main__":
 
     # vytvoří hádané číslo v délce uživatelského vstupu
     hadane_cislo = vytvor_hadane_cislo(zadej_delku_cisla())
-    vypis_radek(hadane_cislo, "stred") # debugování, vypíše číslo
+    # vypis_radek(hadane_cislo, "stred") # debugování, vypíše číslo
     
     vypis_radek(hlaseni["mereni_casu"])
     input(f"|{78 * ' '}| \x1B[79D")
@@ -191,4 +190,3 @@ if __name__ == "__main__":
             vysledny_cas = round(time() - zacatecni_cas, 1)
             vypis_radek(hlaseni["gratulace"])
             vypis_statistiky(pokusy=pocet_pokusu, cas=vysledny_cas)
-            

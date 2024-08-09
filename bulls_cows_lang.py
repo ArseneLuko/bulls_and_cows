@@ -1,6 +1,3 @@
-from turtle import circle
-
-
 hlaseni_en = {
     "pozdrav": "Hi cowgirl or cowboy!",
     "uvod": "I will generat a random X-digit number for you.",
@@ -28,7 +25,7 @@ hlaseni_en = {
 hlaseni_cz = {
     "pozdrav": "Zdravím Tě, hráči * hráčko!",
     "uvod": "Vytvořím pro Tebe X-místné číslo, které budeš hádat",
-    "vyzva": "Poďme hrát The bulls and cows game.",
+    "vyzva": "Pojďme hrát The bulls and cows game.",
     "vyzva_pocet": "Zadej kolik číslic bude mít číslo.",
     "zadani_pocet": "Zadej číslo mezi 3 a 7:",
     "zadani_platny": "Zadej platný vstup - pouze celé číslo od 3 do 7.",
@@ -51,7 +48,7 @@ hlaseni_cz = {
 
 def pridej_sklonovani_en(pocet: int, druh: str) -> str:
     """
-    Podle poču 0 nebo více než jedna přidá k druhu koncov= "s"
+    Podle počtu přidá k druhu koncov= "s" - 0 nebo více než jedna.
     """
     if pocet != 1:
         return str(pocet) + " " + druh + "s"
@@ -60,7 +57,7 @@ def pridej_sklonovani_en(pocet: int, druh: str) -> str:
     
 def pridej_sklonovani_cz(pocet: int, druh: str) -> str:
     """
-    Podle druhu vypíše v češtině název druhu a počet
+    Podle druhu vypíše v češtině název druhu a počet.
     """
     if druh == "bull":
         return "býků: " + str(pocet)
