@@ -172,7 +172,7 @@ if __name__ == "__main__":
 
     # vytvoří hádané číslo v délce uživatelského vstupu
     hadane_cislo = vytvor_hadane_cislo(velikost_cisla := zadej_delku_cisla())
-    vypis_radek(hadane_cislo, "stred") # debugování, vypíše číslo
+    # vypis_radek(hadane_cislo, "stred") # debugování, vypíše číslo
     
     vypis_radek(hlaseni["generovano"].format(velikost_cisla))
     vypis_radek(hlaseni["mereni_casu"])

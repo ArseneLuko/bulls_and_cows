@@ -1,9 +1,9 @@
 hlaseni_en = {
     "pozdrav": "Hi cowgirl or cowboy!",
     "uvod": "I will generat a random X-digit number for you.",
-    "pravidla-1": "když bude číslice na správném místě, dostaneš býka,",
-    "pravidla-2": "když bude číslice na jiném místě, dostaneš krávu.",
-    "pravidla-konec": "Hru můžeš ukončit zadáním \"konec\" nebo \"k\"",
+    "pravidla-1": "If palces match I'll give you a bull,",
+    "pravidla-2": "if places are differn I'll give you a cow.",
+    "pravidla-konec": "You can quit by typing: 'quit' or 'q'",
     "vyzva": "Let's play The bulls and cows game.",
     "vyzva_pocet": "Choose how many digits the number will contain.",
     "zadani_pocet": "Enter a number between 3 to 7:",
