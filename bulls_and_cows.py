@@ -64,7 +64,7 @@ def zadej_delku_cisla() -> int:
         vypis_radek(hlaseni["zadani_pocet"], "vlevo")
         velikost_cisla = input(f"|{78 * ' '}| \x1B[79D")
         if velikost_cisla.lower() in (ukonceni):
-            vypis_radek(hlaseni["konec_bez_cisla"])
+            vypis_radek(hlaseni["konec"])
             vypis_radek(opakovani=2)
             quit()
         if velikost_cisla.isdecimal() and (2 < int(velikost_cisla) < 8):
@@ -129,12 +129,12 @@ def zadej_cislo() -> str:
         cislo = input(f"| {velikost_cisla * '_'}{(77 - velikost_cisla) * ' '}| \x1B[79D").strip() # posune kurzor o 79 míst vlevo
         # https://stackoverflow.com/questions/38246529/how-do-i-get-user-input-in-the-middle-of-a-sentence-fill-in-the-blank-style-us
 
-        # jestliže některá z kontrol neproběhne (Flase), vrátí True a provede příkaz 'continue'
         if cislo.lower() in (ukonceni):
-            vypis_radek(hlaseni["konec"])
+            vypis_radek(hlaseni["konec_bez_cisla"])
             vypis_radek(opakovani=2)
             quit()
 
+        # jestliže některá z kontrol neproběhne (Flase), vrátí True a provede příkaz 'continue'
         if ((not kontroluj_je_cislo(cislo)) or
             (not kontroluj_pocet_cislic(cislo)) or
             (not kontroluj_unikatni_cislice(cislo)) or
@@ -172,7 +172,7 @@ if __name__ == "__main__":
 
     # vytvoří hádané číslo v délce uživatelského vstupu
     hadane_cislo = vytvor_hadane_cislo(velikost_cisla := zadej_delku_cisla())
-    # vypis_radek(hadane_cislo, "stred") # debugování, vypíše číslo
+    # vypis_radek(hadane_cislo, "stred") # debugování, vypíše číslo během hry
     
     vypis_radek(hlaseni["generovano"].format(velikost_cisla))
     vypis_radek(hlaseni["mereni_casu"])
@@ -187,7 +187,7 @@ if __name__ == "__main__":
             vypis_radek(hlaseni["hodnoceni"].format(byci, kravy))
             vypis_radek()
         else:
-            zatim_nezname_cislo = False
+            zatim_nezname_cislo = False # ukončení hry, známe číslo
             vysledny_cas = round(time() - zacatecni_cas, 1)
             vypis_radek(hlaseni["gratulace"])
             vypis_statistiky(pokusy=pocet_pokusu, cas=vysledny_cas)
