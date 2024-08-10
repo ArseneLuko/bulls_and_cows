@@ -39,7 +39,7 @@ def vypis_radek(sdeleni: str=hlaseni["oddelovac"], pozice: str="stred",
 
 def vypis_statistiky(pokusy, cas):
     vypis_radek(hlaseni["pokusy"].format(pokusy))
-    vypis_radek(hlaseni["cas"].format(cas))
+    vypis_radek(hlaseni["cas"].format(round(cas // 60), round(cas % 60)))
     vypis_radek(hlaseni["prumer"].format(round(cas / pokusy, 1)))
     vypis_radek()
 

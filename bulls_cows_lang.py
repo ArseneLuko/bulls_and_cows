@@ -20,7 +20,7 @@ hlaseni_en = {
     "hodnoceni": "There are {} and {}",
     "gratulace": "!!! Congratulations !!!",
     "pokusy": "Number of attempts needed to guess: >{}<",
-    "cas": "Seconds needed to guess: >{}<",
+    "cas": "Time needed to guess: >{}m {}s<",
     "prumer": "Avarage seconds per try: >{}<",
     "mereni_casu": "Press Enter to start timing..."
 }
@@ -47,7 +47,7 @@ hlaseni_cz = {
     "hodnoceni": "Počet {} a {}",
     "gratulace": "!!! Gratulace !!!",
     "pokusy": "Celkový počet pokusů: >{}<",
-    "cas": "Celkový čas (sekundy): >{}<",
+    "cas": "Čas uhodntí: >{}m {}s<",
     "prumer": "Průměrný čas na jeden pokus (sekundy): >{}<",
     "mereni_casu": "Stiskni Enter pro zahájení měření času..."
 }
