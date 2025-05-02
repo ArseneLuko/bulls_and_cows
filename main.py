@@ -193,13 +193,13 @@ if __name__ == "__main__":
     vypis_radek()
 
     # vytvoří hádané číslo v délce uživatelského vstupu
-    # hadane_cislo = vytvor_hadane_cislo(velikost_cisla := zadej_delku_cisla())
-    hadane_cislo = vytvor_hadane_cislo(velikost_cisla := 3)  # testing line
+    hadane_cislo = vytvor_hadane_cislo(velikost_cisla := zadej_delku_cisla())
+    # hadane_cislo = vytvor_hadane_cislo(velikost_cisla := 3)  # testing line
     # vypis_radek(hadane_cislo, "stred") # debugování, vypíše číslo během hry
     
     vypis_radek(hlaseni["generovano"].format(velikost_cisla))
     vypis_radek(hlaseni["mereni_casu"])
-    # input(f"|{78 * ' '}| \x1B[79D") # comment for testing
+    input(f"|{78 * ' '}| \x1B[79D") # comment for testing
     vypis_radek(opakovani=2)
     zacatecni_cas = time()
     while zatim_nezname_cislo: # nekonečná smyčka pro hádání čísla, ukončí se při uhodnutí
