@@ -22,7 +22,10 @@ hlaseni_en = {
     "pokusy": "Number of attempts needed to guess: >{}<",
     "cas": "Time needed to guess: >{}m {}s<",
     "prumer": "Avarage seconds per try: >{}<",
-    "mereni_casu": "Press Enter to start timing..."
+    "mereni_casu": "Press Enter to start timing...",
+    "ah": 77 * "-" + "{}",
+    "napoveda": "ah, oh, joj,... you've tried it so many times",
+    "pouzita_napoveda": "...with a clue ;)"
 }
 
 hlaseni_cz = {
@@ -49,7 +52,10 @@ hlaseni_cz = {
     "pokusy": "Celkový počet pokusů: >{}<",
     "cas": "Čas uhodntí: >{}m {}s<",
     "prumer": "Průměrný čas na jeden pokus (sekundy): >{}<",
-    "mereni_casu": "Stiskni Enter pro zahájení měření času..."
+    "mereni_casu": "Stiskni Enter pro zahájení měření času...",
+    "ah": 77 * "-" + "{}",
+    "napoveda": "ah, oh, joj,... už si to zkusil tolikrát",
+    "pouzita_napoveda": "...s použitím nápovědy ;)"
 }
 
 def pridej_sklonovani_en(pocet: int, druh: str) -> str:
