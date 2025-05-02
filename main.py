@@ -1,16 +1,15 @@
 """
-bulls_and_cows.py: druhý projekt (první varianta) do Engeto Online Python Akademie
+Bulls and cows: Druhý projekt kurzu Engeto - Python
 author: Lukáš Karásek
 email: lukas@lukaskarasek.cz
-discord: lukaskarasek__77224
+discord: lukaskarasek_arsene
 """
 
-# importování
-from random import randint
+from random import shuffle
 from time import time
 from sys import argv
 
-# importování jazyka podle parametru
+# nastavení proměnné jazyka podle parametru
 if (len(argv) > 1) and argv[1] == '-cz':
     from bulls_cows_lang import hlaseni_cz as hlaseni
     from bulls_cows_lang import pridej_sklonovani_cz as pridej_sklonovani
@@ -18,13 +17,12 @@ else:
     from bulls_cows_lang import hlaseni_en as hlaseni
     from bulls_cows_lang import pridej_sklonovani_en as pridej_sklonovani
 
-# globální proměnné proměnné
 ukonceni = ("quit", "q", "konec", "k")
 pocet_pokusu = 0
 
-# definice funkcí
-def vypis_radek(sdeleni: str=hlaseni["oddelovac"], pozice: str="stred",
-                opakovani: int=1):
+
+def vypis_radek(sdeleni: str = hlaseni["oddelovac"], pozice: str="stred",
+                opakovani: int = 1):
     """
     Vypíše vstup mezi znaky "|" na začátku a na konci v velkové délce 79 znaků.
     Bez argumentu vypíše řadu pomlček. Pro argument pozice je možné zadat 2 možnosi: "stred" - zarovnání na střed (defaultní), "vpravo" - zaovnání vpravo a "vlevo" - zarovnání vlevo.
@@ -37,23 +35,37 @@ def vypis_radek(sdeleni: str=hlaseni["oddelovac"], pozice: str="stred",
         elif pozice == "vpravo":
             print(f"| {sdeleni: >76} ", end="|\n") # 79 celkem: "| " + 76 + " "
 
+
 def vypis_statistiky(pokusy, cas):
     vypis_radek(hlaseni["pokusy"].format(pokusy))
     vypis_radek(hlaseni["cas"].format(round(cas // 60), round(cas % 60)))
     vypis_radek(hlaseni["prumer"].format(round(cas / pokusy, 1)))
     vypis_radek()
 
+
 def vytvor_hadane_cislo(velikost: int) -> str:
     """
     Funkce vrátí náhodné celé číslo (ve formátu textu), které nezačíná číslicí 0. Počet číslic je zvolen uživatelem. 
     """
-    while True:
-        nahodne_cislo = randint(int("1" + (velikost - 1) * "0"), int(velikost * "9"))
-        # pokud je každé číslo jen jednou, bude množina (set) stejně velká jako list, ale pokud se nějaká číslice opakuje, v množině se vysktne jen jednou a tím pádem nebude mít set a list stejnou velikost
-        if len(set(str(nahodne_cislo))) != len(list(str(nahodne_cislo))):
-            continue
-        break
-    return str(nahodne_cislo)
+    cisla = [str(cislo) for cislo in range(10)] # vytvoří list s čísly od 0 do 9
+    shuffle(cisla)
+    nahodne_cislo = ''
+    for _ in range(velikost):
+        nahodne_cislo += cisla.pop()
+
+    return nahodne_cislo
+
+# def vytvor_hadane_cislo(velikost: int) -> str:
+#     """
+#     Funkce vrátí náhodné celé číslo (ve formátu textu), které nezačíná číslicí 0. Počet číslic je zvolen uživatelem. 
+#     """
+#     while True:
+#         nahodne_cislo = randint(int("1" + (velikost - 1) * "0"), int(velikost * "9"))
+#         # pokud je každé číslo jen jednou, bude množina (set) stejně velká jako list, ale pokud se nějaká číslice opakuje, v množině se vysktne jen jednou a tím pádem nebude mít set a list stejnou velikost
+#         if len(set(str(nahodne_cislo))) != len(list(str(nahodne_cislo))):
+#             continue
+#         break
+#     return str(nahodne_cislo)
 
 def zadej_delku_cisla() -> int:
     """
