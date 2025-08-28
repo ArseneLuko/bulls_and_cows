@@ -73,6 +73,11 @@ def zadej_delku_cisla() -> int:
             vypis_radek(hlaseni["konec"])
             vypis_radek(opakovani=2)
             quit()
+
+        if velikost_cisla.lower() == 'top10':
+            vypis_top10()
+            continue
+
         if velikost_cisla.isdecimal() and (2 < int(velikost_cisla) < 8):
             break
         vypis_radek(hlaseni["zadani_platny"], "vpravo")
@@ -153,6 +158,10 @@ def zadej_cislo() -> str:
             vypis_radek(hlaseni['ah'].format(hadane_cislo[-1]))
             continue
 
+        if cislo.lower() == 'top10':
+            vypis_top10()
+            continue
+
         # jestliže některá z kontrol neproběhne (Flase), vrátí True a provede příkaz 'continue'
         if ((not kontroluj_je_cislo(cislo)) or
             (not kontroluj_pocet_cislic(cislo)) or
@@ -179,6 +188,10 @@ def zhodnoceni_pokusu(pokus: str, cislo: str) -> tuple:
     return(byci, kravy)
 
 
+def vypis_top10():
+    pass # TODO: vypíše 10 ze souboru top10.csv
+
+
 # hlavní program
 if __name__ == "__main__":
     # proměnné
@@ -190,6 +203,8 @@ if __name__ == "__main__":
     vypis_radek(), vypis_radek(hlaseni["vyzva"]), vypis_radek(hlaseni["uvod"])
     vypis_radek(hlaseni["pravidla-1"]), vypis_radek(hlaseni["pravidla-2"])
     vypis_radek(hlaseni["pravidla-konec"])
+    vypis_radek("")
+    vypis_radek(hlaseni["pravidla-top10"])
     vypis_radek()
 
     # vytvoří hádané číslo v délce uživatelského vstupu
