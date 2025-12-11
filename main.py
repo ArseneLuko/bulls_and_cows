@@ -25,7 +25,7 @@ pouzita_napoveda = False
 def vypis_radek(sdeleni: str = hlaseni["oddelovac"], pozice: str="stred",
                 opakovani: int = 1):
     """
-    Vypíše vstup mezi znaky "|" na začátku a na konci v velkové délce 79 znaků.
+    Vypíše vstup mezi znaky "|" na začátku a na konci v celkové délce 79 znaků.
     Bez argumentu vypíše řadu pomlček. Pro argument pozice je možné zadat 2 možnosi: "stred" - zarovnání na střed (defaultní), "vpravo" - zaovnání vpravo a "vlevo" - zarovnání vlevo.
     """
     for _ in range(opakovani):
