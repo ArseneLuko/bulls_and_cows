@@ -189,7 +189,18 @@ def zhodnoceni_pokusu(pokus: str, cislo: str) -> tuple:
 
 
 def vypis_top10():
-    pass # TODO: vypíše 10 ze souboru top10.csv
+    """Vypíše prvních 10 nejrychlejších řešení (podle počtu pokusů) pouze pro danou 'obtížnost' - počet číslic"""
+    import top10
+
+    try:
+        zaznamy = top10.top10[velikost_cisla]
+    except NameError:
+        vypis_radek(hlaseni['nezadana_velikost'])
+    except KeyError:
+        vypis_radek(hlaseni['neni_zaznam'].format(velikost_cisla))
+    else:
+        for radek in zaznamy:
+            vypis_radek(hlaseni['top10_radek'].format(radek, zaznamy[radek]['name'].ljust(20), zaznamy[radek]['attempts']), "vlevo")
 
 
 # hlavní program

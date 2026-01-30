@@ -26,7 +26,10 @@ hlaseni_en = {
     "mereni_casu": "Press Enter to start timing...",
     "ah": 77 * "-" + "{}",
     "napoveda": "ah, oh, joj,... you've tried it so many times",
-    "pouzita_napoveda": "...with a clue ;)"
+    "pouzita_napoveda": "...with a clue ;)",
+    "nezadana_velikost": "The number length has not yet been set.",
+    "neni_zaznam": "There is no score record for this length >{}<.",
+    "top10_radek": " {}. | {} {}"
 }
 
 hlaseni_cz = {
@@ -57,7 +60,10 @@ hlaseni_cz = {
     "mereni_casu": "Stiskni Enter pro zahájení měření času...",
     "ah": 77 * "-" + "{}",
     "napoveda": "ah, oh, joj,... už si to zkusil tolikrát",
-    "pouzita_napoveda": "...s použitím nápovědy ;)"
+    "pouzita_napoveda": "...s použitím nápovědy ;)",
+    "nezadana_velikost": "Délka čísla zatím nebyla nastavena.",
+    "neni_zaznam": "Pro tuto délku >{}< není záznam skóre.",
+    "top10_radek": " {}. | {} {}"
 }
 
 def pridej_sklonovani_en(pocet: int, druh: str) -> str:
