@@ -6,8 +6,10 @@ discord: lukaskarasek_arsene
 """
 
 from random import shuffle
+from re import sub
 from time import time
 from sys import argv
+import subprocess
 
 # nastavení proměnné jazyka podle parametru
 if (len(argv) > 1) and argv[1] == '-cz':
@@ -201,6 +203,8 @@ def vypis_top10():
     else:
         for radek in zaznamy:
             vypis_radek(hlaseni['top10_radek'].format(radek, zaznamy[radek]['name'].ljust(20), zaznamy[radek]['attempts']), "vlevo")
+    finally:
+        vypis_radek()
 
 
 # hlavní program
@@ -209,6 +213,7 @@ if __name__ == "__main__":
     zatim_nezname_cislo = True
 
     # vypíše hlavičku hry na obrazovku
+    subprocess.run('clear')
     vypis_radek(opakovani=2)
     vypis_radek(hlaseni["pozdrav"])
     vypis_radek(), vypis_radek(hlaseni["vyzva"]), vypis_radek(hlaseni["uvod"])
@@ -220,12 +225,12 @@ if __name__ == "__main__":
 
     # vytvoří hádané číslo v délce uživatelského vstupu
     hadane_cislo = vytvor_hadane_cislo(velikost_cisla := zadej_delku_cisla())
-    # hadane_cislo = vytvor_hadane_cislo(velikost_cisla := 3)  # testing line
-    # vypis_radek(hadane_cislo, "stred") # debugování, vypíše číslo během hry
+    # hadane_cislo = vytvor_hadane_cislo(velikost_cisla := 3)  # DEBUG line
+    # vypis_radek(hadane_cislo, "stred") # DEBUG, vypíše číslo během hry
     
     vypis_radek(hlaseni["generovano"].format(velikost_cisla))
     vypis_radek(hlaseni["mereni_casu"])
-    input(f"|{78 * ' '}| \x1B[79D") # comment for testing
+    input(f"|{78 * ' '}| \x1B[79D") # comment for DEBUG
     vypis_radek(opakovani=2)
     zacatecni_cas = time()
     while zatim_nezname_cislo: # nekonečná smyčka pro hádání čísla, ukončí se při uhodnutí
@@ -242,3 +247,5 @@ if __name__ == "__main__":
             vysledny_cas = round(time() - zacatecni_cas, 1)
             vypis_radek(hlaseni["gratulace"])
             vypis_statistiky(pokusy=pocet_pokusu, cas=vysledny_cas, pouzita_napoveda=pouzita_napoveda)
+            vypis_radek()
+            vypis_top10()
