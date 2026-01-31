@@ -6,7 +6,6 @@ discord: lukaskarasek_arsene
 """
 
 from random import shuffle
-from re import sub
 from time import time
 from sys import argv
 import subprocess
@@ -190,8 +189,8 @@ def zhodnoceni_pokusu(pokus: str, cislo: str) -> tuple:
     return(byci, kravy)
 
 
-def vypis_top10():
-    """Vypíše prvních 10 nejrychlejších řešení (podle počtu pokusů) pouze pro danou 'obtížnost' - počet číslic"""
+def nacti_top10():
+
     import top10
 
     try:
@@ -201,10 +200,23 @@ def vypis_top10():
     except KeyError:
         vypis_radek(hlaseni['neni_zaznam'].format(velikost_cisla))
     else:
-        for radek in zaznamy:
-            vypis_radek(hlaseni['top10_radek'].format(radek, zaznamy[radek]['name'].ljust(20), zaznamy[radek]['attempts']), "vlevo")
-    finally:
-        vypis_radek()
+        return zaznamy
+
+def je_v_top10():
+    zaznamy = nacti_top10()
+    pass 
+
+
+
+
+def vypis_top10():
+    """Vypíše prvních 10 nejrychlejších řešení (podle počtu pokusů) pouze pro danou 'obtížnost' - počet číslic"""
+    zaznamy = nacti_top10()
+
+    for radek in zaznamy:
+        vypis_radek(hlaseni['top10_radek'].format(radek, zaznamy[radek]['name'].ljust(20), zaznamy[radek]['attempts']), "vlevo")
+
+    vypis_radek()
 
 
 # hlavní program
@@ -248,4 +260,5 @@ if __name__ == "__main__":
             vypis_radek(hlaseni["gratulace"])
             vypis_statistiky(pokusy=pocet_pokusu, cas=vysledny_cas, pouzita_napoveda=pouzita_napoveda)
             vypis_radek()
+            je_v_top10()
             vypis_top10()
