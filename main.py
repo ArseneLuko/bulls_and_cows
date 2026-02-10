@@ -190,31 +190,47 @@ def zhodnoceni_pokusu(pokus: str, cislo: str) -> tuple:
 
 
 def nacti_top10():
-
     import top10
 
     try:
         zaznamy = top10.top10[velikost_cisla]
-    except NameError:
-        vypis_radek(hlaseni['nezadana_velikost'])
-    except KeyError:
-        vypis_radek(hlaseni['neni_zaznam'].format(velikost_cisla))
+    except NameError as e:
+        return e
+    except KeyError as e:
+        return e
     else:
         return zaznamy
 
 def je_v_top10():
     zaznamy = nacti_top10()
-    pass 
 
+    if isinstance(zaznamy, KeyError):
+        pass
+        # není tabulka pro tuto velikost -> zapiš, vytvoř novou
+    else:
+        # TODO: zápis do souboru, podle času
+        for poradi, data in zaznamy.items():
+            if pocet_pokusu < data['attempts'] and poradi < 10:
+                print(f'zapíšeš se na pořadí: {poradi}')
+                zapis_do_top10(poradi)
+                break
 
+def zapis_do_top10(poradi: int):
+    zaznamy = nacti_top10()
+    
 
 
 def vypis_top10():
     """Vypíše prvních 10 nejrychlejších řešení (podle počtu pokusů) pouze pro danou 'obtížnost' - počet číslic"""
     zaznamy = nacti_top10()
 
-    for radek in zaznamy:
-        vypis_radek(hlaseni['top10_radek'].format(radek, zaznamy[radek]['name'].ljust(20), zaznamy[radek]['attempts']), "vlevo")
+    if isinstance(zaznamy, NameError):
+        vypis_radek(hlaseni['nezadana_velikost'])
+    elif isinstance(zaznamy, KeyError):
+        vypis_radek(hlaseni['neni_zaznam'].format(velikost_cisla))
+    else:
+        for radek in zaznamy:
+            vypis_radek(hlaseni['top10_radek'].format(radek, zaznamy[radek]['name'].ljust(20), zaznamy[radek]['attempts']), "vlevo")
 
     vypis_radek()
 
@@ -238,7 +254,7 @@ if __name__ == "__main__":
     # vytvoří hádané číslo v délce uživatelského vstupu
     hadane_cislo = vytvor_hadane_cislo(velikost_cisla := zadej_delku_cisla())
     # hadane_cislo = vytvor_hadane_cislo(velikost_cisla := 3)  # DEBUG line
-    # vypis_radek(hadane_cislo, "stred") # DEBUG, vypíše číslo během hry
+    vypis_radek(hadane_cislo, "stred") # DEBUG, vypíše číslo během hry
     
     vypis_radek(hlaseni["generovano"].format(velikost_cisla))
     vypis_radek(hlaseni["mereni_casu"])
